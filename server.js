@@ -6,8 +6,14 @@ const cors = require("cors");
 
 const user_routes = require("./routes/user_routes");
 const message_routes = require("./routes/message_routes");
+const chatroom_routes = require("./routes/chatroom_routes");
 mongoose
-  .connect("mongodb://127.0.0.1:27017/chatdevone")
+  .connect(
+    " mongodb://127.0.0.1:27017/chat",
+    {
+      useNewUrlParser: true
+    }
+  )
   .then(() => {
     console.log("Connected to Mongo DB");
   })
@@ -19,7 +25,7 @@ app.use(cors());
 
 app.use("/user", user_routes);
 app.use("/message", message_routes);
-
+app.use("/chatroom", chatroom_routes);
 const server = app.listen(4500, () => {
   console.log("Started");
 });
