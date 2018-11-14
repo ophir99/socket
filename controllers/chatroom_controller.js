@@ -9,6 +9,7 @@ exports.createChatRoom = async (req, res) => {
       .find({ includes: { $all: [req.body.user1, req.body.user2] } })
       .then(result => {
         if (result.length > 0) {
+          console.log("More than one**");
           throw new Error("You are already joined");
         }
         console.log("CR", result);
@@ -58,6 +59,7 @@ exports.createChatRoom = async (req, res) => {
         throw error;
       });
   } catch (error) {
+    console.log("****Done.");
     res.send({ error: error });
   }
 };

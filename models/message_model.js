@@ -2,10 +2,9 @@ const mongoose = require("mongoose");
 
 const messageSchema = new mongoose.Schema({
   text: String,
-  to: String,
+  room: String,
   createdBy: String,
-  createdAt: String,
-  includes: [String]
+  createdAt: String
 });
 
 const messageModel = mongoose.model("Messages", messageSchema);

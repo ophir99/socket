@@ -9,7 +9,7 @@ const message_routes = require("./routes/message_routes");
 const chatroom_routes = require("./routes/chatroom_routes");
 mongoose
   .connect(
-    " mongodb://127.0.0.1:27017/chat",
+    " mongodb://127.0.0.1:27017/chaty",
     {
       useNewUrlParser: true
     }
@@ -31,6 +31,10 @@ const server = app.listen(4500, () => {
 });
 
 const io = require("./socket").setIO(server);
-io.on("connection", () => {
+io.on("connection", socket => {
   console.log("Connected to Socket");
+  socket.on("createRoom", room => {
+    console.log("Room", room);
+    socket.join(room);
+  });
 });
