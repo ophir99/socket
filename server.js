@@ -9,7 +9,7 @@ const message_routes = require("./routes/message_routes");
 const chatroom_routes = require("./routes/chatroom_routes");
 mongoose
   .connect(
-    " mongodb://127.0.0.1:27017/chaty",
+    " mongodb://127.0.0.1:27017/chatz",
     {
       useNewUrlParser: true
     }
