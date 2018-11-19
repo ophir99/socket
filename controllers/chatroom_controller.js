@@ -1,25 +1,24 @@
 const chatRoom = require("./../models/chatroom_model");
 const user = require("./../models/user_models");
 exports.createChatRoom = async (req, res) => {
-  console.log(req.body);
   let roomid;
   let superResult;
   try {
     await chatRoom
       .find({ includes: { $all: [req.body.user1, req.body.user2] } })
       .then(result => {
+        console.log("Chat Rooms", result);
         if (result.length > 0) {
           console.log("More than one**");
           throw new Error("You are already joined");
         }
-        console.log("CR", result);
+
         const cRoom = new chatRoom({
           includes: [req.body.user1, req.body.user2]
         });
         return cRoom.save();
       })
       .then(result => {
-        console.log("RR", result);
         roomid = result._id;
         superResult = result;
 
@@ -37,7 +36,6 @@ exports.createChatRoom = async (req, res) => {
         );
       })
       .then(result => {
-        console.log("One", result);
         return user.findOneAndUpdate(
           { _id: req.body.user2 },
           {
@@ -52,14 +50,13 @@ exports.createChatRoom = async (req, res) => {
         );
       })
       .then(result => {
-        console.log("Two", result);
         res.send({ response: superResult });
       })
       .catch(error => {
         throw error;
       });
   } catch (error) {
-    console.log("****Done.");
+    console.log("Error Block");
     res.send({ error: error });
   }
 };

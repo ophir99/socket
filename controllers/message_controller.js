@@ -13,6 +13,7 @@ exports.createMessage = async (req, res) => {
       .then(result => {
         // console.log(io);
         // io.getIO().emit("newMessage", result);
+        console.log("ROOM is", req.body.room);
         io.getIO()
           .sockets.in(req.body.room)
           .emit("newMsg", { data: result });
@@ -48,6 +49,7 @@ exports.getMessages = async (req, res) => {
 };
 
 exports.getConvo = async (req, res) => {
+  console.log("Conversation");
   try {
     await message
       .find({ room: req.query.room })

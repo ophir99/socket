@@ -2,6 +2,7 @@ const user = require("../models/user_models");
 const io = require("./../socket");
 exports.create = async (req, res) => {
   console.log(req.body);
+
   const new_user = new user({
     email: req.body.email,
     password: req.body.password,
@@ -39,16 +40,15 @@ exports.login = async (req, res) => {
   try {
     await user
       .find({ email: req.body.email, password: req.body.password })
-      .then(
-        result =>
-          result.length > 0
-            ? (changeStatusToLoggedIn(result[0]),
-              io.getIO().emit("Change Log Status", {
-                email: result[0].email,
-                status: true
-              }),
-              res.send({ response: result }))
-            : res.send({ response: "User not found" })
+      .then(result =>
+        result.length > 0
+          ? (changeStatusToLoggedIn(result[0]),
+            io.getIO().emit("Change Log Status", {
+              email: result[0].email,
+              status: true
+            }),
+            res.send({ response: result }))
+          : res.send({ response: "User not found" })
       )
       .catch(error => {
         throw error;
