@@ -8,7 +8,9 @@ Install mongodb
 
 # Setting up mongo db
 
-Open terminal/command prompt and run `mongod` command and then open other terminal / command prompt to run `mongo` command
+Create a folder in C drive with name data. Now in this data folder, create another folder as child with name db
+
+Open terminal/command prompt and run `mongod --dbpath c:\data\db` command and then open other terminal / command prompt to run `mongo` command
 
 ## Setting up your application
 
